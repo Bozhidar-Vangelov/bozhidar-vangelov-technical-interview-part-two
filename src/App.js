@@ -1,9 +1,9 @@
-import Profile from './components/List/Profile/Profile.js';
+import Names from './components/Names/Names.js';
 
 function App() {
   return (
     <div className='App'>
-      <Profile />
+      <Names />
     </div>
   );
 }

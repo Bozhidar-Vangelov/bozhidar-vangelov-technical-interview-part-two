@@ -1,7 +1,7 @@
 import { Button, Container } from 'react-bootstrap';
-import PostItem from './PostItem.js';
+import PostItem from './PostItem.js.js';
 
-function Posts() {
+function PostsItemsList() {
   const posts = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
@@ -16,4 +16,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default PostsItemsList;

@@ -4,13 +4,10 @@ import PostsItemsList from '../Posts/PostsItemsList.js';
 
 function Profile() {
   return (
-    <Card id='card' fluid>
-      <Card.Header fluid>Bret</Card.Header>
-      <Card.Body fluid className='p-0 mt-3'>
-        <ProfileItemsList />
-        <PostsItemsList />
-      </Card.Body>
-    </Card>
+    <Card.Body fluid className='p-0 mt-3'>
+      <ProfileItemsList />
+      <PostsItemsList />
+    </Card.Body>
   );
 }
 
