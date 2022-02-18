@@ -4,11 +4,7 @@ import PostsItemsList from '../Posts/PostsItemsList.js';
 
 function Profile({ isOpen }) {
   return (
-    <Card.Body
-      fluid
-      // className='p-0 mt-3'
-      className={isOpen ? '' : 'd-none'}
-    >
+    <Card.Body fluid className={isOpen ? 'p-0 mt-3' : 'd-none p-0 mt-3'}>
       <ProfileItemsList />
       <PostsItemsList />
     </Card.Body>
