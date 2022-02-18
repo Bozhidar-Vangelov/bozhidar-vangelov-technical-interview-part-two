@@ -10,9 +10,9 @@ import {
 function App() {
   return (
     <div className='App'>
-      <Card fluid>
+      <Card id='card' fluid>
         <Card.Header fluid>Bret</Card.Header>
-        <Card.Body fluid>
+        <Card.Body fluid className='p-0 mt-3'>
           <Container fluid id='info' className='border-bottom'>
             <Container fluid id='inputs' className='d-flex flex-wrap'>
               <Container fluid id='personal-info' className='w-50'>
@@ -153,6 +153,165 @@ function App() {
               <Button variant='primary'>Get users' posts</Button>
               <Button variant='success'>Confirm changes</Button>
               <Button variant='danger'>Revert changes</Button>
+            </Container>
+          </Container>
+          <Container fluid id='posts' className='mt-5'>
+            <Container fluid id='create' className='mb-5'>
+              <Button variant='success'>Create a post</Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
+            </Container>
+            <Container id='post' fluid className='border border-info p-3 mb-3'>
+              <Card.Title>
+                sunt aut facere repellat provident occaecati excepturi optio
+                reprehenderit
+              </Card.Title>
+              <Card.Text>
+                quia et suscipit\nsuscipit recusandae consequuntur expedita et
+                cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est
+                autem sunt rem eveniet architecto
+              </Card.Text>
+              <Button action variant='danger'>
+                Delete post
+              </Button>
             </Container>
           </Container>
         </Card.Body>
