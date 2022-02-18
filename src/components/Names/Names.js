@@ -1,9 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import Profile from './Profile/Profile.js';
 
+import * as usersService from '../../services/usersService.js';
+
 function Names() {
   const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    usersService.getUsers();
+  }, []);
 
   const names = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
