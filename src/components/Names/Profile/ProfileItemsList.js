@@ -1,7 +1,7 @@
 import { Button, Form, Container } from 'react-bootstrap';
 import ProfileItem from './ProfileItem.js';
 
-function ProfileItemsList() {
+function ProfileItemsList({ fetchUserPosts }) {
   const user = {
     personalInfo: {
       name: 'Leanne Graham',
@@ -63,7 +63,9 @@ function ProfileItemsList() {
         id='buttons'
         className='d-flex justify-content-between mt-5 mb-5'
       >
-        <Button variant='primary'>Get users' posts</Button>
+        <Button variant='primary' onClick={fetchUserPosts}>
+          Get users' posts
+        </Button>
         <Button variant='success'>Confirm changes</Button>
         <Button variant='danger'>Revert changes</Button>
       </Container>
