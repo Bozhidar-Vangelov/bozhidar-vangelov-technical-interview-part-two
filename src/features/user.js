@@ -1,34 +1,18 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    value: {
-      id: 0,
-      name: '',
-      username: '',
-      email: '',
-      address: {
-        street: '',
-        suite: '',
-        city: '',
-        zipcode: '',
-      },
-      geo: {
-        lat: 0,
-        lng: 0,
-      },
-      phone: 0,
-      website: '',
-    },
-  },
-  reducers: {
-    get: (state, action) => {
-      state.value = action.payload;
-    },
-  },
+export const userApi = createApi({
+  reducerPath: 'userApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://jsonplaceholder.typicode.com/',
+  }),
+  endpoints: (builder) => ({
+    getAllUsers: builder.query({
+      query: () => 'users',
+    }),
+    getUserPosts: builder.query({
+      query: (userId) => `posts?userId=${userId}`,
+    }),
+  }),
 });
 
-export const { get } = userSlice.actions;
-
-export default userSlice.reducer;
+export const { useGetAllQuery, useGetPostsForUserQuery } = userApi;

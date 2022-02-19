@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import Profile from './Profile/Profile.js';
 
-import * as usersService from '../../services/usersService.js';
+import api from '../../services/usersService.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { get } from '../../features/user.js';
 
@@ -12,26 +12,16 @@ function Names() {
 
   const user = useSelector((state) => state.user.value);
 
-  const newUser = {
-    id: 5,
-    name: 'ddwqqwd',
-    username: 'wqdqw',
-    email: 'wqdqwdww',
-    address: {
-      street: 'wqdwq',
-      suite: 'wqddwq',
-      city: 'dwqdqw',
-      zipcode: 'dwqdwq',
-    },
-    geo: {
-      lat: 6,
-      lng: 2,
-    },
-    phone: 21321321,
-    website: 'dwqdqw',
-  };
-
-  useEffect(() => {}, []);
+  useEffect(() => {
+    (async () => {
+      try {
+        let newUsers = await api.get();
+        dispatch(get(newUsers.data));
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [dispatch]);
 
   const names = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -39,6 +29,8 @@ function Names() {
     setIsOpen(!isOpen);
     console.log(isOpen);
   };
+
+  console.log(user);
 
   const list = (
     <>
@@ -48,7 +40,6 @@ function Names() {
       <Profile isOpen={isOpen} />
       <button
         onClick={() => {
-          dispatch(get(newUser));
           console.log(user);
         }}
       >
