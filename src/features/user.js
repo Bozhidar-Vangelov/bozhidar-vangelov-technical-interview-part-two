@@ -15,4 +15,4 @@ export const userApi = createApi({
   }),
 });
 
-export const { useGetAllQuery, useGetPostsForUserQuery } = userApi;
+export const { useGetAllUsersQuery, useGetUserPostsQuery } = userApi;
