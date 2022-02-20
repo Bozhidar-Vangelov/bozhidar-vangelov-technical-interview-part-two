@@ -5,10 +5,28 @@ import {
   useGetUserByIdQuery,
   useUpdateUserByIdMutation,
 } from '../../../features/user.js';
+import { useState } from 'react';
 
 function ProfileItemsList({ fetchUserPosts, userId }) {
   const { data: user, isLoading, refetch } = useGetUserByIdQuery(userId);
   const [updateUserById] = useUpdateUserByIdMutation();
+
+  const [userChange, setUserChange] = useState({
+    name: '',
+    username: '',
+    email: '',
+    phone: '',
+    website: '',
+    street: '',
+    suite: '',
+    city: '',
+    zipcode: '',
+    latitude: '',
+    longitude: '',
+    companyName: '',
+    catchPhrase: '',
+    business: '',
+  });
 
   if (isLoading) {
     return 'Loading';
@@ -17,46 +35,9 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    let formData = new FormData(e.currentTarget);
-    let {
-      name,
-      username,
-      email,
-      phone,
-      website,
-      street,
-      suite,
-      city,
-      zipcode,
-      latitude,
-      longitude,
-      companyName,
-      catchPhrase,
-      business,
-    } = Object.fromEntries(formData);
-
     await updateUserById({
       userId,
-      name,
-      username,
-      email,
-      address: {
-        street,
-        suite,
-        city,
-        zipcode,
-        geo: {
-          latitude,
-          longitude,
-        },
-      },
-      phone,
-      website,
-      company: {
-        companyName,
-        catchPhrase,
-        business,
-      },
+      ...userChange,
     });
     refetch();
   };
@@ -72,6 +53,13 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
 
   const entries = getEntries(user).slice(1);
 
+  const onChangeHandler = (e) => {
+    setUserChange((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <Container fluid id='info' className='border-bottom'>
       <Form onSubmit={onSubmitHandler} className='d-flex flex-wrap'>
@@ -81,7 +69,9 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
               userId={userId}
               label={key}
               defaultValue={value}
+              value={userChange.value}
               key={value}
+              onChange={onChangeHandler}
             />
           ))}
         </Container>

@@ -1,6 +1,6 @@
 import { InputGroup, FormControl } from 'react-bootstrap';
 
-function ProfileItem({ label, defaultValue }) {
+function ProfileItem({ label, defaultValue, onChange, value }) {
   return (
     <InputGroup className='mb-3'>
       <InputGroup.Text id={label}>
@@ -11,6 +11,8 @@ function ProfileItem({ label, defaultValue }) {
         name={label}
         defaultValue={defaultValue}
         aria-describedby={label}
+        value={value}
+        onChange={onChange}
       />
     </InputGroup>
   );
