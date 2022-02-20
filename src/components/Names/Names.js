@@ -12,7 +12,7 @@ function Names() {
 
   return (
     <Container fluid id='names' className='m-0 p-0'>
-      <Card id='card' fluid>
+      <Card id='card'>
         {users.map((user) => (
           <Name key={user.id} user={user} />
         ))}
