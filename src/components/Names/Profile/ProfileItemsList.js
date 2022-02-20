@@ -1,42 +1,25 @@
 import { Button, Form, Container } from 'react-bootstrap';
 import ProfileItem from './ProfileItem.js';
 
-function ProfileItemsList({ fetchUserPosts }) {
-  const user = {
-    personalInfo: {
-      name: 'Leanne Graham',
-      username: 'Bret',
-      email: 'Sincere@april.biz',
-      phone: '1-770-736-8031 x56442',
-      website: 'hildegard.org',
-    },
-    address: {
-      street: 'Kulas Light',
-      suite: 'Apt. 556',
-      city: 'Gwenborough',
-      zipcode: '92998-3874',
-    },
-    geo: {
-      lat: '-37.3159',
-      lng: '81.1496',
-    },
-    company: {
-      name: 'Romaguera-Crona',
-      catchPhrase: 'Multi-layered client-server neural-net',
-      bs: 'harness real-time e-markets',
-    },
-  };
+import { useGetUserByIdQuery } from '../../../features/user.js';
+
+function ProfileItemsList({ fetchUserPosts, userId }) {
+  const { data: user, isLoading } = useGetUserByIdQuery(userId);
+
+  if (isLoading) {
+    return 'Loading';
+  }
 
   return (
     <Container fluid id='info' className='border-bottom'>
       <Container fluid id='inputs' className='d-flex flex-wrap'>
         <Container fluid id='personal-info' className='w-50'>
           <Form.Label htmlFor='personal-info'>Personal info</Form.Label>
-          <ProfileItem name='name' value={user.personalInfo.name} />
-          <ProfileItem name='username' value={user.personalInfo.username} />
-          <ProfileItem name='email' value={user.personalInfo.email} />
-          <ProfileItem name='phone' value={user.personalInfo.phone} />
-          <ProfileItem name='website' value={user.personalInfo.website} />
+          <ProfileItem name='name' value={user.name} />
+          <ProfileItem name='username' value={user.username} />
+          <ProfileItem name='email' value={user.email} />
+          <ProfileItem name='phone' value={user.phone} />
+          <ProfileItem name='website' value={user.website} />
         </Container>
         <Container fluid id='address' className='w-50'>
           <Form.Label htmlFor='address'>Address</Form.Label>
@@ -47,8 +30,8 @@ function ProfileItemsList({ fetchUserPosts }) {
         </Container>
         <Container fluid id='geo' className='w-50'>
           <Form.Label htmlFor='geo'>Geo Location</Form.Label>
-          <ProfileItem name='latitude' value={user.geo.lat} />
-          <ProfileItem name='longitude' value={user.geo.lng} />
+          <ProfileItem name='latitude' value={user.address.geo.lat} />
+          <ProfileItem name='longitude' value={user.address.geo.lng} />
         </Container>
         <Container fluid id='company' className='w-50'>
           <Form.Label htmlFor='company'>Company</Form.Label>

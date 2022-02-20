@@ -10,7 +10,7 @@ function Profile({ isOpen, userId }) {
 
   return (
     <Card.Body className={isOpen ? 'p-0 mt-3' : 'd-none p-0 mt-3'}>
-      <ProfileItemsList fetchUserPosts={fetchUserPosts} />
+      <ProfileItemsList userId={userId} fetchUserPosts={fetchUserPosts} />
       <PostsItemsList userId={userId} shouldFetchPosts={skip} />
     </Card.Body>
   );
