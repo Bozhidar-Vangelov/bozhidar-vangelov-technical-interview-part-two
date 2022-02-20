@@ -10,48 +10,101 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
     return 'Loading';
   }
 
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+
+    let formData = new FormData(e.currentTarget);
+    let data = Object.fromEntries(formData);
+
+    console.log(data);
+  };
+
   return (
     <Container fluid id='info' className='border-bottom'>
-      <Container fluid id='inputs' className='d-flex flex-wrap'>
-        <Container fluid id='personal-info' className='w-50'>
-          <Form.Label htmlFor='personal-info'>Personal info</Form.Label>
-          <ProfileItem name='name' value={user.name} />
-          <ProfileItem name='username' value={user.username} />
-          <ProfileItem name='email' value={user.email} />
-          <ProfileItem name='phone' value={user.phone} />
-          <ProfileItem name='website' value={user.website} />
+      <Form onSubmit={onSubmitHandler} className='d-flex flex-wrap'>
+        <Container fluid id='inputs' className='d-flex flex-wrap'>
+          <Container fluid id='personal-info' className='w-50'>
+            <Form.Label htmlFor='personal-info'>Personal info</Form.Label>
+            <ProfileItem userId={userId} label='name' value={user.name} />
+            <ProfileItem
+              userId={userId}
+              label='username'
+              value={user.username}
+            />
+            <ProfileItem userId={userId} label='email' value={user.email} />
+            <ProfileItem userId={userId} label='phone' value={user.phone} />
+            <ProfileItem userId={userId} label='website' value={user.website} />
+          </Container>
+          <Container fluid id='address' className='w-50'>
+            <Form.Label htmlFor='address'>Address</Form.Label>
+            <ProfileItem
+              userId={userId}
+              label='street'
+              value={user.address.street}
+            />
+            <ProfileItem
+              userId={userId}
+              label='suite'
+              value={user.address.suite}
+            />
+            <ProfileItem
+              userId={userId}
+              label='city'
+              value={user.address.zipcode}
+            />
+            <ProfileItem
+              userId={userId}
+              label='zipcode'
+              value={user.address.street}
+            />
+          </Container>
+          <Container fluid id='geo' className='w-50'>
+            <Form.Label htmlFor='geo'>Geo Location</Form.Label>
+            <ProfileItem
+              userId={userId}
+              label='latitude'
+              value={user.address.geo.lat}
+            />
+            <ProfileItem
+              userId={userId}
+              label='longitude'
+              value={user.address.geo.lng}
+            />
+          </Container>
+          <Container fluid id='company' className='w-50'>
+            <Form.Label htmlFor='company'>Company</Form.Label>
+            <ProfileItem
+              userId={userId}
+              label='companyName'
+              value={user.company.name}
+            />
+            <ProfileItem
+              userId={userId}
+              label='catchPhrase'
+              value={user.company.catchPhrase}
+            />
+            <ProfileItem
+              userId={userId}
+              label='business'
+              value={user.company.bs}
+            />
+          </Container>
         </Container>
-        <Container fluid id='address' className='w-50'>
-          <Form.Label htmlFor='address'>Address</Form.Label>
-          <ProfileItem name='street' value={user.address.street} />
-          <ProfileItem name='suite' value={user.address.suite} />
-          <ProfileItem name='city' value={user.address.zipcode} />
-          <ProfileItem name='zipcode' value={user.address.street} />
+        {/*Buttons*/}
+        <Container
+          fluid
+          id='buttons'
+          className='d-flex justify-content-between mt-5 mb-5'
+        >
+          <Button variant='primary' onClick={fetchUserPosts}>
+            Get users' posts
+          </Button>
+          <Button variant='success' type='submit'>
+            Confirm changes
+          </Button>
+          <Button variant='danger'>Revert changes</Button>
         </Container>
-        <Container fluid id='geo' className='w-50'>
-          <Form.Label htmlFor='geo'>Geo Location</Form.Label>
-          <ProfileItem name='latitude' value={user.address.geo.lat} />
-          <ProfileItem name='longitude' value={user.address.geo.lng} />
-        </Container>
-        <Container fluid id='company' className='w-50'>
-          <Form.Label htmlFor='company'>Company</Form.Label>
-          <ProfileItem name='name' value={user.company.name} />
-          <ProfileItem name='catch phrase' value={user.company.catchPhrase} />
-          <ProfileItem name='business' value={user.company.bs} />
-        </Container>
-      </Container>
-      {/*Buttons*/}
-      <Container
-        fluid
-        id='buttons'
-        className='d-flex justify-content-between mt-5 mb-5'
-      >
-        <Button variant='primary' onClick={fetchUserPosts}>
-          Get users' posts
-        </Button>
-        <Button variant='success'>Confirm changes</Button>
-        <Button variant='danger'>Revert changes</Button>
-      </Container>
+      </Form>
     </Container>
   );
 }
