@@ -8,7 +8,7 @@ import {
 
 function ProfileItemsList({ fetchUserPosts, userId }) {
   const { data: user, isLoading, refetch } = useGetUserByIdQuery(userId);
-  const [updateUserById] = useUpdateUserByIdMutation(userId);
+  const [updateUserById] = useUpdateUserByIdMutation();
 
   if (isLoading) {
     return 'Loading';
@@ -18,11 +18,46 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
     e.preventDefault();
 
     let formData = new FormData(e.currentTarget);
-    let data = Object.fromEntries(formData);
+    let {
+      name,
+      username,
+      email,
+      phone,
+      website,
+      street,
+      suite,
+      city,
+      zipcode,
+      latitude,
+      longitude,
+      companyName,
+      catchPhrase,
+      business,
+    } = Object.fromEntries(formData);
 
-    let name = data.name;
-
-    await updateUserById({ userId, name });
+    await updateUserById({
+      userId,
+      name,
+      username,
+      email,
+      address: {
+        street,
+        suite,
+        city,
+        zipcode,
+        geo: {
+          latitude,
+          longitude,
+        },
+      },
+      phone,
+      website,
+      company: {
+        companyName,
+        catchPhrase,
+        business,
+      },
+    });
     refetch();
 
     console.log(user);
