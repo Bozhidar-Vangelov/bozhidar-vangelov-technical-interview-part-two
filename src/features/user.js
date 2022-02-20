@@ -15,6 +15,13 @@ export const userApi = createApi({
     getUserPosts: builder.query({
       query: (userId) => `posts?userId=${userId}`,
     }),
+    updateUserById: builder.mutation({
+      query: ({ userId, ...rest }) => ({
+        url: `users/${userId}`,
+        method: 'PUT',
+        body: rest,
+      }),
+    }),
   }),
 });
 
@@ -22,4 +29,5 @@ export const {
   useGetAllUsersQuery,
   useGetUserByIdQuery,
   useGetUserPostsQuery,
+  useUpdateUserByIdMutation,
 } = userApi;

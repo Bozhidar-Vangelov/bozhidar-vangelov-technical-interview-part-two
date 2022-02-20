@@ -1,22 +1,31 @@
 import { Button, Form, Container } from 'react-bootstrap';
 import ProfileItem from './ProfileItem.js';
 
-import { useGetUserByIdQuery } from '../../../features/user.js';
+import {
+  useGetUserByIdQuery,
+  useUpdateUserByIdMutation,
+} from '../../../features/user.js';
 
 function ProfileItemsList({ fetchUserPosts, userId }) {
-  const { data: user, isLoading } = useGetUserByIdQuery(userId);
+  const { data: user, isLoading, refetch } = useGetUserByIdQuery(userId);
+  const [updateUserById] = useUpdateUserByIdMutation(userId);
 
   if (isLoading) {
     return 'Loading';
   }
 
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
 
     let formData = new FormData(e.currentTarget);
     let data = Object.fromEntries(formData);
 
-    console.log(data);
+    let name = data.name;
+
+    await updateUserById({ userId, name });
+    refetch();
+
+    console.log(user);
   };
 
   return (
