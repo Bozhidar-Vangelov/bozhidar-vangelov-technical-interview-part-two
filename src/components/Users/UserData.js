@@ -1,13 +1,18 @@
-import { Button, Form, Container } from 'react-bootstrap';
-import ProfileItem from './ProfileItem.js';
+import {
+  Button,
+  Form,
+  Container,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap';
 
 import {
   useGetUserByIdQuery,
   useUpdateUserByIdMutation,
 } from '../../features/user.js';
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 
-function ProfileItemsList({ fetchUserPosts, userId }) {
+const UserData = ({ fetchUserPosts, userId }) => {
   const { data: user, isLoading, refetch } = useGetUserByIdQuery(userId);
   const [updateUserById] = useUpdateUserByIdMutation();
 
@@ -64,15 +69,17 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
     <Container fluid id='info' className='border-bottom'>
       <Form onSubmit={onSubmitHandler} className='d-flex flex-wrap'>
         <Container fluid id='inputs' className='d-flex flex-wrap'>
-          {entries.map(([key, value]) => (
-            <ProfileItem
-              userId={userId}
-              label={key}
-              defaultValue={value}
-              value={userChange.value}
-              key={value}
-              onChange={onChangeHandler}
-            />
+          {entries.map(([key, value], i) => (
+            <Fragment key={`${i}${key}`}>
+              <InputGroup className='mb-3'>
+                <InputGroup.Text>{key}</InputGroup.Text>
+                <FormControl
+                  name={key}
+                  value={value}
+                  onChange={onChangeHandler}
+                />
+              </InputGroup>
+            </Fragment>
           ))}
         </Container>
         {/*Buttons*/}
@@ -89,6 +96,6 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
       </Form>
     </Container>
   );
-}
+};
 
-export default ProfileItemsList;
+export default UserData;

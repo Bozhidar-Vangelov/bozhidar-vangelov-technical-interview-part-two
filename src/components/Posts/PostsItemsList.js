@@ -13,7 +13,7 @@ import {
 } from '../../features/user.js';
 import { useState } from 'react';
 
-function PostsItemsList({ userId, shouldFetchPosts }) {
+const PostsItemsList = ({ userId, shouldFetchPosts }) => {
   const { data: posts, isLoading } = useGetUserPostsQuery(userId, {
     skip: shouldFetchPosts,
   });
@@ -48,22 +48,15 @@ function PostsItemsList({ userId, shouldFetchPosts }) {
         ))}
       </Container>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <InputGroup className='mb-3'>
-            <InputGroup.Text id='basic-addon2'>Title</InputGroup.Text>
-            <FormControl
-              aria-label="Recipient's username"
-              aria-describedby='basic-addon2'
-            />
-          </InputGroup>
-        </Modal.Header>
+        <Modal.Header closeButton>Create a post</Modal.Header>
         <Modal.Body>
           <InputGroup className='mb-3'>
-            <InputGroup.Text id='basic-addon2'>Body</InputGroup.Text>
-            <FormControl
-              aria-label="Recipient's username"
-              aria-describedby='basic-addon2'
-            />
+            <InputGroup.Text>Title</InputGroup.Text>
+            <FormControl name='title' />
+          </InputGroup>
+          <InputGroup className='mb-3'>
+            <InputGroup.Text>Body</InputGroup.Text>
+            <FormControl name='body' />
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
@@ -77,6 +70,6 @@ function PostsItemsList({ userId, shouldFetchPosts }) {
       </Modal>
     </>
   );
-}
+};
 
 export default PostsItemsList;
