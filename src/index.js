@@ -5,14 +5,16 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { userApi } from './features/user.js';
+import { users } from './features/users.js';
+import { posts } from './features/posts.js';
 
 const store = configureStore({
   reducer: {
-    [userApi.reducerPath]: userApi.reducer,
+    [users.reducerPath]: users.reducer,
+    [posts.reducerPath]: posts.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(userApi.middleware),
+    getDefaultMiddleware().concat([users.middleware, posts.middleware]),
 });
 
 ReactDOM.render(

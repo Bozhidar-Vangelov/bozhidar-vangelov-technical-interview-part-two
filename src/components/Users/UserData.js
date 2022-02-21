@@ -9,7 +9,7 @@ import {
 import {
   useGetUserByIdQuery,
   useUpdateUserByIdMutation,
-} from '../../features/user.js';
+} from '../../features/users.js';
 import { useState, Fragment } from 'react';
 
 const UserData = ({ fetchUserPosts, userId }) => {

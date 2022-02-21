@@ -1,6 +1,6 @@
 import { Container, Card } from 'react-bootstrap';
 
-import { useGetAllUsersQuery } from '../../features/user.js';
+import { useGetAllUsersQuery } from '../../features/users.js';
 import User from './User.js';
 
 function UsersList() {

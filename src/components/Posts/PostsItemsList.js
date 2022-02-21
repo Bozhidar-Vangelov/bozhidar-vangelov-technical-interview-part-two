@@ -8,7 +8,7 @@ import {
 import {
   useCreatePostMutation,
   useGetUserPostsQuery,
-} from '../../features/user.js';
+} from '../../features/users.js';
 import { useState } from 'react';
 import PostItem from './PostItem.js';
 
