@@ -11,7 +11,6 @@ function Profile({ isOpen, userId }) {
   const fetchUserPosts = () => {
     setShowPosts((prevState) => !prevState);
     setSkip(false);
-    console.log(showPosts);
   };
 
   return (
