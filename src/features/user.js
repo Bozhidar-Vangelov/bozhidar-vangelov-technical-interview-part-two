@@ -28,7 +28,7 @@ export const userApi = createApi({
       invalidatesTags: ['User'],
     }),
     createPost: builder.mutation({
-      query: (userId, ...rest) => ({
+      query: ({ userId, ...rest }) => ({
         url: `posts?userId=${userId}`,
         method: 'POST',
         body: rest,
