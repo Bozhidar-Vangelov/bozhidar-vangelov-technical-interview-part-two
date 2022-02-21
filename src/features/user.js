@@ -27,6 +27,14 @@ export const userApi = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+    createPost: builder.mutation({
+      query: (userId, ...rest) => ({
+        url: `posts?userId=${userId}`,
+        method: 'POST',
+        body: rest,
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
@@ -35,4 +43,5 @@ export const {
   useGetUserByIdQuery,
   useGetUserPostsQuery,
   useUpdateUserByIdMutation,
+  useCreatePostMutation,
 } = userApi;

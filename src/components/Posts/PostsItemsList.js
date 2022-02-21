@@ -7,7 +7,10 @@ import {
 } from 'react-bootstrap';
 import PostItem from './PostItem.js';
 
-import { useGetUserPostsQuery } from '../../features/user.js';
+import {
+  useCreatePostMutation,
+  useGetUserPostsQuery,
+} from '../../features/user.js';
 import { useState } from 'react';
 
 function PostsItemsList({ userId, shouldFetchPosts }) {
@@ -15,9 +18,17 @@ function PostsItemsList({ userId, shouldFetchPosts }) {
     skip: shouldFetchPosts,
   });
 
+  const [createPost] = useCreatePostMutation();
+
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = async () => {
+    await createPost({
+      userId,
+    });
+
+    setShow(false);
+  };
   const handleShow = () => setShow(true);
 
   if (isLoading || !posts) {
