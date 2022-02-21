@@ -81,9 +81,6 @@ function ProfileItemsList({ fetchUserPosts, userId }) {
           id='buttons'
           className='d-flex justify-content-between mt-5 mb-5'
         >
-          <Button variant='primary' onClick={fetchUserPosts}>
-            Get users' posts
-          </Button>
           <Button variant='success' type='submit'>
             Confirm changes
           </Button>
