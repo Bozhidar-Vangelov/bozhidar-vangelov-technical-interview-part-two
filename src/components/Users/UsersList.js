@@ -1,9 +1,9 @@
 import { Container, Card } from 'react-bootstrap';
 
 import { useGetAllUsersQuery } from '../../features/user.js';
-import Name from './Name.js';
+import User from './User.js';
 
-function Names() {
+function UsersList() {
   const { data: users, isLoading } = useGetAllUsersQuery();
 
   if (isLoading) {
@@ -14,11 +14,11 @@ function Names() {
     <Container fluid id='names' className='m-0 p-0'>
       <Card id='card'>
         {users.map((user) => (
-          <Name key={user.id} user={user} />
+          <User key={user.id} user={user} />
         ))}
       </Card>
     </Container>
   );
 }
 
-export default Names;
+export default UsersList;

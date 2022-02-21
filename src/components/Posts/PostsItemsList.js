@@ -1,7 +1,7 @@
 import { Button, Container } from 'react-bootstrap';
 import PostItem from './PostItem.js';
 
-import { useGetUserPostsQuery } from '../../../features/user.js';
+import { useGetUserPostsQuery } from '../../features/user.js';
 
 function PostsItemsList({ userId, shouldFetchPosts }) {
   const { data: posts, isLoading } = useGetUserPostsQuery(userId, {

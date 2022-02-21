@@ -4,7 +4,7 @@ import ProfileItem from './ProfileItem.js';
 import {
   useGetUserByIdQuery,
   useUpdateUserByIdMutation,
-} from '../../../features/user.js';
+} from '../../features/user.js';
 import { useState } from 'react';
 
 function ProfileItemsList({ fetchUserPosts, userId }) {

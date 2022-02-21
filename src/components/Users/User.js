@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Card } from 'react-bootstrap';
-import Profile from './Profile/Profile.js';
+import Profile from '../Profile/Profile.js';
 
-function Name({ user }) {
+function User({ user }) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevState) => !prevState);
   return (
@@ -13,4 +13,4 @@ function Name({ user }) {
   );
 }
 
-export default Name;
+export default User;

@@ -1,9 +1,9 @@
-import Names from './components/Names/Names.js';
+import UsersList from './components/Users/UsersList.js';
 
 function App() {
   return (
     <div className='App'>
-      <Names />
+      <UsersList />
     </div>
   );
 }
