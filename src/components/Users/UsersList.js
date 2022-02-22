@@ -3,7 +3,7 @@ import { Container, Card } from 'react-bootstrap';
 import { useGetAllUsersQuery } from '../../features/users.js';
 import User from './User.js';
 
-function UsersList() {
+const UsersList = () => {
   const { data: users, isLoading } = useGetAllUsersQuery();
 
   if (isLoading) {
@@ -19,6 +19,6 @@ function UsersList() {
       </Card>
     </Container>
   );
-}
+};
 
 export default UsersList;

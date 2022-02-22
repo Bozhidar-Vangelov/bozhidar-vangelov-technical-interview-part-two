@@ -1,11 +1,5 @@
 import UsersList from './components/Users/UsersList.js';
 
-function App() {
-  return (
-    <div className='App'>
-      <UsersList />
-    </div>
-  );
-}
+const App = () => <UsersList />;
 
 export default App;

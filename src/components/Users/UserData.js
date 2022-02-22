@@ -1,3 +1,4 @@
+import { useState, useEffect, Fragment } from 'react';
 import {
   Button,
   Form,
@@ -5,69 +6,67 @@ import {
   InputGroup,
   FormControl,
 } from 'react-bootstrap';
-
 import {
-  useGetUserByIdQuery,
+  useGetAllUsersQuery,
   useUpdateUserByIdMutation,
 } from '../../features/users.js';
-import { useState, Fragment } from 'react';
+import { getEntries, getDifferences } from '../../utils';
 
-const UserData = ({ fetchUserPosts, userId }) => {
-  const { data: user, isLoading, refetch } = useGetUserByIdQuery(userId);
+const UserData = ({ userId }) => {
   const [updateUserById] = useUpdateUserByIdMutation();
 
-  const [userChange, setUserChange] = useState({
-    name: '',
-    username: '',
-    email: '',
-    phone: '',
-    website: '',
-    street: '',
-    suite: '',
-    city: '',
-    zipcode: '',
-    latitude: '',
-    longitude: '',
-    companyName: '',
-    catchPhrase: '',
-    business: '',
+  const { user } = useGetAllUsersQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      user: data?.find((u) => u.id === userId),
+    }),
   });
 
-  if (isLoading) {
-    return 'Loading';
-  }
+  const [userInfo, setUserInfo] = useState({});
 
-  const onSubmitHandler = async (e) => {
+  const [, ...entries] = getEntries(userInfo);
+
+  const updateWithCachedState = () => {
+    const cachedEntries = getEntries(user);
+    const state = cachedEntries
+      .map(([key, value]) => ({
+        [key]: value,
+      }))
+      .reduce((result, current) => ({ ...result, ...current }), {});
+
+    setUserInfo(state);
+  };
+
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
+
+    const newValues = getDifferences(user, userInfo);
 
     await updateUserById({
       userId,
-      ...userChange,
+      ...newValues,
     });
-    refetch();
   };
 
-  const getEntries = (object) =>
-    Object.entries(object).flatMap(([key, value]) => {
-      if (typeof value === 'object') {
-        return getEntries(value);
-      }
-
-      return [[key, value]];
-    });
-
-  const entries = getEntries(user).slice(1);
-
-  const onChangeHandler = (e) => {
-    setUserChange((prevState) => ({
+  const handleOnChange = (e) => {
+    setUserInfo((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
     }));
   };
 
+  const handleRevertChanges = () => {
+    updateWithCachedState();
+  };
+
+  useEffect(() => {
+    console.log({ user });
+
+    updateWithCachedState();
+  }, [user]);
+
   return (
     <Container fluid id='info' className='border-bottom'>
-      <Form onSubmit={onSubmitHandler} className='d-flex flex-wrap'>
+      <Form onSubmit={handleOnSubmit} className='d-flex flex-wrap'>
         <Container fluid id='inputs' className='d-flex flex-wrap'>
           {entries.map(([key, value], i) => (
             <Fragment key={`${i}${key}`}>
@@ -76,7 +75,7 @@ const UserData = ({ fetchUserPosts, userId }) => {
                 <FormControl
                   name={key}
                   value={value}
-                  onChange={onChangeHandler}
+                  onChange={handleOnChange}
                 />
               </InputGroup>
             </Fragment>
@@ -86,12 +85,14 @@ const UserData = ({ fetchUserPosts, userId }) => {
         <Container
           fluid
           id='buttons'
-          className='d-flex justify-content-between mt-5 mb-5'
+          className='d-flex justify-content-evenly mt-5 mb-5'
         >
           <Button variant='success' type='submit'>
             Confirm changes
           </Button>
-          <Button variant='danger'>Revert changes</Button>
+          <Button variant='danger' onClick={handleRevertChanges}>
+            Revert changes
+          </Button>
         </Container>
       </Form>
     </Container>
