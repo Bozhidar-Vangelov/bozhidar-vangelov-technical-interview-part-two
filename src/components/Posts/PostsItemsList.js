@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Button,
   Container,
@@ -8,52 +9,54 @@ import {
 import {
   useCreatePostMutation,
   useGetUserPostsQuery,
-} from '../../features/users.js';
-import { useState } from 'react';
+} from '../../services/posts';
 import PostItem from './PostItem.js';
 
-const PostsItemsList = ({ userId, shouldFetchPosts }) => {
+
+const PostList = ({ userId, shouldFetchPosts }) => {
   const { data: posts, isLoading } = useGetUserPostsQuery(userId, {
     skip: shouldFetchPosts,
   });
   const [createPost] = useCreatePostMutation();
+  const initialNewPostState = { title: '', body: '' }
+  const initialHasChangedState = { title: false, body: false }
+  const [hasChanged, setHasChanged] = useState(initialHasChangedState)
+  const [newPost, setNewPost] = useState(initialNewPostState)
   const [show, setShow] = useState(false);
-  const [hasChanged, setHasChanged] = useState({
-    title: false,
-    body: false,
-  });
-  const [newPost, setNewPost] = useState({
-    title: '',
-    body: '',
-  });
 
   const handleShow = () => setShow(true);
   const handleClose = async () => setShow(false);
   const handleChange = (e) => {
-    setHasChanged((prevState) => ({
+    setHasChanged(prevState => ({
       ...prevState,
-      [e.target.name]: true,
-    }));
-    setNewPost((prevState) => ({
+      [e.target.name]: true
+    }))
+    setNewPost(prevState => ({
       ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+      [e.target.name]: e.target.value
+    }))
+  }
   const handleCreate = async () => {
     if (!newPost.title || !newPost.body) {
       setHasChanged({
         title: true,
-        body: true,
-      });
-
-      return;
+        body: true
+      })
+      
+      return
     }
+  
+    setShow(false)
+    setHasChanged(initialHasChangedState)
+    setNewPost(initialNewPostState)
+  
+
     await createPost({
       userId,
-      newPost,
+      title: newPost.title,
+      body: newPost.body
     });
-    setShow(false);
-  };
+  }
 
   if (isLoading || !posts) {
     return 'Loading';
@@ -68,29 +71,21 @@ const PostsItemsList = ({ userId, shouldFetchPosts }) => {
           </Button>
         </Container>
         {posts.map((post) => (
-          <PostItem key={post.id} title={post.title} body={post.body} />
+          <PostItem key={post.id} userId={userId} id={post.id} title={post.title} body={post.body} />
         ))}
       </Container>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>Create a post</Modal.Header>
+        <Modal.Header closeButton>
+          Create a post
+        </Modal.Header>
         <Modal.Body>
-          <InputGroup className='mb-3'>
+        <InputGroup className='mb-3'>
             <InputGroup.Text>Title</InputGroup.Text>
-            <FormControl
-              name='title'
-              isInvalid={hasChanged.title && !newPost.title}
-              value={newPost.title}
-              onChange={handleChange}
-            />
+            <FormControl name='title' isInvalid={hasChanged.title && !newPost.title} value={newPost.title} onChange={handleChange} />
           </InputGroup>
           <InputGroup className='mb-3'>
             <InputGroup.Text>Body</InputGroup.Text>
-            <FormControl
-              name='body'
-              isInvalid={hasChanged.body && !newPost.body}
-              value={newPost.body}
-              onChange={handleChange}
-            />
+            <FormControl name='body' isInvalid={hasChanged.body && !newPost.body} value={newPost.body} onChange={handleChange} />
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
@@ -104,6 +99,6 @@ const PostsItemsList = ({ userId, shouldFetchPosts }) => {
       </Modal>
     </>
   );
-};
+}
 
-export default PostsItemsList;
+export default PostList;

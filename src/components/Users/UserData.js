@@ -1,75 +1,73 @@
-import { useState, useEffect, Fragment } from 'react';
+import { Fragment, useEffect, useState } from 'react'
 import {
   Button,
   Form,
   Container,
   InputGroup,
-  FormControl,
-} from 'react-bootstrap';
+  FormControl
+} from 'react-bootstrap'
 import {
   useGetAllUsersQuery,
-  useUpdateUserByIdMutation,
-} from '../../features/users.js';
-import { getEntries, getDifferences } from '../../utils';
+  useUpdateUserByIdMutation
+} from '../../services/users'
+import { getEntries, getDifferences } from '../../utils'
 
 const UserData = ({ userId }) => {
-  const [updateUserById] = useUpdateUserByIdMutation();
-
+  const [updateUserById] = useUpdateUserByIdMutation()
   const { user } = useGetAllUsersQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      user: data?.find((u) => u.id === userId),
-    }),
-  });
+      user: data?.find(u => u.id === userId)
+    })
+  })
 
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({})
 
-  const [, ...entries] = getEntries(userInfo);
+  const [, ...entries] = getEntries(userInfo)
 
   const updateWithCachedState = () => {
-    const cachedEntries = getEntries(user);
+    const cachedEntries = getEntries(user)
     const state = cachedEntries
       .map(([key, value]) => ({
-        [key]: value,
+        [key]: value
       }))
-      .reduce((result, current) => ({ ...result, ...current }), {});
+      .reduce((result, current) => ({ ...result, ...current }), {})
 
-    setUserInfo(state);
-  };
+      setUserInfo(state)
+  }
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async e => {
+    e.preventDefault()
 
-    const newValues = getDifferences(user, userInfo);
+    const newValues = getDifferences(user, userInfo)
 
     await updateUserById({
       userId,
-      ...newValues,
-    });
-  };
+      ...newValues
+    })
+  }
 
-  const handleOnChange = (e) => {
-    setUserInfo((prevState) => ({
+  const handleOnChange = e => {
+    setUserInfo(prevState => ({
       ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+      [e.target.name]: e.target.value
+    }))
+  }
 
   const handleRevertChanges = () => {
-    updateWithCachedState();
-  };
+    updateWithCachedState()
+  }
 
   useEffect(() => {
-    console.log({ user });
-
-    updateWithCachedState();
-  }, [user]);
+    console.log({user})
+    updateWithCachedState()
+  }, [user])
 
   return (
     <Container fluid id='info' className='border-bottom'>
-      <Form onSubmit={handleOnSubmit} className='d-flex flex-wrap'>
+      <Form onSubmit={handleSubmit} className='d-flex flex-wrap'>
         <Container fluid id='inputs' className='d-flex flex-wrap'>
-          {entries.map(([key, value], i) => (
-            <Fragment key={`${i}${key}`}>
+          {entries.map(([key, value], index) => (
+            <Fragment key={`${index}${key}`}>
               <InputGroup className='mb-3'>
                 <InputGroup.Text>{key}</InputGroup.Text>
                 <FormControl
@@ -81,7 +79,6 @@ const UserData = ({ userId }) => {
             </Fragment>
           ))}
         </Container>
-        {/*Buttons*/}
         <Container
           fluid
           id='buttons'
@@ -96,7 +93,7 @@ const UserData = ({ userId }) => {
         </Container>
       </Form>
     </Container>
-  );
-};
+  )
+}
 
-export default UserData;
+export default UserData

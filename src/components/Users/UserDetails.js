@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Card, Button, Container } from 'react-bootstrap';
-import UserData from './UserData.js';
-import PostsItemsList from '../Posts/PostsItemsList.js';
+import UserData from './UserData';
+import PostsItemsList from '../Posts/PostsItemsList';
 
-const UserDetails = ({ isOpen, userId }) => {
+const Profile = ({ isOpen, userId }) => {
   const [fetchPosts, setFetchPosts] = useState(true);
   const [showPosts, setShowPosts] = useState(false);
 
@@ -14,7 +14,7 @@ const UserDetails = ({ isOpen, userId }) => {
 
   return (
     <Card.Body className={isOpen ? 'p-0 mt-3' : 'd-none p-0 mt-3'}>
-      <UserData userId={userId} fetchUserPosts={fetchUserPosts} />
+      <UserData userId={userId} />
       <Container className='text-center mt-5 mb-5'>
         <Button variant='primary' onClick={fetchUserPosts}>
           Get Users' posts
@@ -28,4 +28,4 @@ const UserDetails = ({ isOpen, userId }) => {
   );
 };
 
-export default UserDetails;
+export default Profile;

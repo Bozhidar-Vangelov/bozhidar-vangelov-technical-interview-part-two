@@ -1,12 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { users } from '../features/users.js';
-import { posts } from '../features/posts.js';
+import { configureStore } from '@reduxjs/toolkit'
+import { users } from '../services/users'
+import { posts } from '../services/posts'
 
 export const store = configureStore({
   reducer: {
     [users.reducerPath]: users.reducer,
-    [posts.reducerPath]: posts.reducer,
+    [posts.reducerPath]: posts.reducer
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([users.middleware, posts.middleware]),
-});
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat([users.middleware, posts.middleware])
+})
